@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:spacchiofy/ui/pages/home_page.dart';
 import 'package:spacchiofy/ui/pages/loading_page.dart';
 import 'package:spacchiofy/ui/widgets/player_bar_context.dart';
-import 'package:sutils/utils.dart';
 
 class Spacchiofy extends StatelessWidget {
     static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -49,24 +48,8 @@ class Spacchiofy extends StatelessWidget {
         )
     );
 
-    void _setupOrientationAndOverlays() {
-        SystemChrome.setPreferredOrientations([
-            if(EPlatform.isTV || EPlatform.isTablet) ...[
-                DeviceOrientation.landscapeLeft,
-                DeviceOrientation.landscapeRight
-            ] else
-                DeviceOrientation.portraitUp
-        ]);
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            systemNavigationBarColor: Colors.transparent,
-        ));
-    }
-
     @override
     Widget build(BuildContext context) {
-        this._setupOrientationAndOverlays();
         return Shortcuts(
             shortcuts: <LogicalKeySet, Intent>{
                 LogicalKeySet(LogicalKeyboardKey.select): ActivateIntent(),
