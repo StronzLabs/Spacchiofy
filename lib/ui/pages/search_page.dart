@@ -71,7 +71,7 @@ class SearchPage extends SearchDelegate {
                     return this._buildNoResults(context);
 
                 return Padding(
-                    padding: EdgeInsets.all(5),
+                    padding: EdgeInsets.symmetric(horizontal: 5),
                     child: ListView(
                         children: [
                             for(Track track in tracks)
