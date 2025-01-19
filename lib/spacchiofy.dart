@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:spacchiofy/logic/data/track.dart';
 import 'package:spacchiofy/ui/pages/home_page.dart';
 import 'package:spacchiofy/ui/pages/loading_page.dart';
+import 'package:spacchiofy/ui/pages/track_page.dart';
 import 'package:spacchiofy/ui/widgets/player_bar_context.dart';
 
 class Spacchiofy extends StatelessWidget {
@@ -63,9 +65,19 @@ class Spacchiofy extends StatelessWidget {
                     '/loading': (context) => LoadingPage(),
                     '/home' : (context) => HomePage(),
                 },
+                onGenerateRoute: (settings) {
+                    return MaterialPageRoute(
+                        settings: settings,
+                        builder: (context) => switch(settings.name) {
+                            '/track' => TrackPage(track: settings.arguments as Track),
+                            '/' => const SizedBox.shrink(),
+                            _ => throw Exception('Invalid route: ${settings.name}')
+                        }
+                    );
+                },
+                builder: (context, child) => PlayerBarContext(child: child),
                 navigatorKey: Spacchiofy.navigatorKey,
                 debugShowCheckedModeBanner: false,
-                builder: (context, child) => PlayerBarContext(child: child),
             )
         );
     }
